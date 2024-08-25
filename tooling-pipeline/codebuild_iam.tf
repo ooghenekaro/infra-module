@@ -1,3 +1,23 @@
+data "aws_iam_policy_document" "codebuild_policy" {
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "codebuild:BatchGetProjects"
+    ]
+
+    resources = [
+      "arn:aws:codebuild:eu-west-2:335871625378:project/cross-account-CodeAnalysisProject"
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::969271830187:role/InfraBuildRole"]
+    }
+  }
+}
+
+
 # IAM role for CodeBuild in the tooling account
 resource "aws_iam_role" "codebuild_role" {
   name = "${var.project_name}-CodeBuildRole"
@@ -44,3 +64,4 @@ resource "aws_iam_role_policy_attachment" "codebuild_policy" {
   role       = aws_iam_role.codebuild_role.name
   policy_arn  = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
+

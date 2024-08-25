@@ -43,6 +43,11 @@ resource "aws_codebuild_project" "plan" {
     type      = "CODEPIPELINE"
     buildspec = file("${path.module}/buildspec-plan.yaml")
   }
+
+ resource_policy {
+    policy = data.aws_iam_policy_document.codebuild_policy.json
+  }
+
 }
 
 resource "aws_codebuild_project" "apply" {
@@ -66,6 +71,11 @@ resource "aws_codebuild_project" "apply" {
     type      = "CODEPIPELINE"
     buildspec = file("${path.module}/buildspec-apply.yaml")
   }
+
+   resource_policy {
+    policy = data.aws_iam_policy_document.codebuild_policy.json
+  }
+
 }
 
 
