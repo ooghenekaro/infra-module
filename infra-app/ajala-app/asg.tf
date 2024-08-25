@@ -25,9 +25,9 @@ resource "aws_launch_template" "app_lt" {
   EOT
   )
 
-  iam_instance_profile {
-    name = aws_iam_instance_profile.ec2_instance_profile.name
-  }
+#  iam_instance_profile {
+#    name = aws_iam_instance_profile.ec2_instance_profile.name
+#  }
 
   vpc_security_group_ids = [aws_security_group.app_sg.id]
 
