@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo "Building Docker image..."
+      - docker build -t docker-ecr .
+      - docker tag docker-ecr:latest 335871625378.dkr.ecr.eu-west-2.amazonaws.com/docker-ecr:latest
+      - echo "Pushing Docker image..."
+      - aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 335871625378.dkr.ecr.eu-west-2.amazonaws.com
+      - docker push 335871625378.dkr.ecr.eu-west-2.amazonaws.com/docker-ecr:latest
+
+artifacts:
+  files:
+    - '**/*'
